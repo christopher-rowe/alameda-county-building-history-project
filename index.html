@@ -181,6 +181,13 @@ body { margin:0; padding:0; }
 </div>
 
 <script>
+if (window.self !== window.top && window.screen.width <= 480 && window.matchMedia('(orientation: portrait)').matches) {
+    const box = document.getElementById('intro-box');
+    box.style.maxWidth = '280px';
+    box.style.width = '80%';
+    box.style.padding = '20px 24px';
+}
+
 mapboxgl.accessToken = 'pk.eyJ1Ijoib2FrbGFuZC1tYXAtbWFrZXIiLCJhIjoiY21tMDU2eWpxMGV3djNob2U5Y2VndGR1ayJ9.F0DJuCifU0eyS1uqhF5i5Q';
 
 const map = new mapboxgl.Map({
@@ -349,12 +356,6 @@ map.on('load', () => {
     // WIKI POINTS TOGGLE
     // --------------------------------------------------
 
-    if (window.self !== window.top && window.innerWidth <= 480) {
-        const box = document.getElementById('intro-box');
-        box.style.maxWidth = '280px';
-        box.style.width = '80%';
-        box.style.padding = '20px 24px';
-    }
 
     document.getElementById('intro-close').addEventListener('click', () => {
         document.getElementById('intro-overlay').style.display = 'none';
