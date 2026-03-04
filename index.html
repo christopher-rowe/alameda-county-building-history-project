@@ -350,7 +350,10 @@ map.on('load', () => {
     // --------------------------------------------------
 
     if (window.self !== window.top) {
-        document.getElementById('intro-box').classList.add('compact');
+        const box = document.getElementById('intro-box');
+        box.style.maxWidth = '320px';
+        box.style.width = '70%';
+        box.style.padding = '20px 24px';
     }
 
     document.getElementById('intro-close').addEventListener('click', () => {
