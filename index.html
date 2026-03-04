@@ -349,10 +349,10 @@ map.on('load', () => {
     // WIKI POINTS TOGGLE
     // --------------------------------------------------
 
-    if (window.self !== window.top) {
+    if (window.self !== window.top && window.innerWidth <= 480) {
         const box = document.getElementById('intro-box');
-        box.style.maxWidth = '320px';
-        box.style.width = '70%';
+        box.style.maxWidth = '280px';
+        box.style.width = '80%';
         box.style.padding = '20px 24px';
     }
 
