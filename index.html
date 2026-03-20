@@ -275,24 +275,32 @@ map.on('load', () => {
     ]);
     map.setPaintProperty('buildings-with-year', 'fill-emissive-strength', 1);
 
-    // Wiki points: defined entirely in JS, bypassing Studio composite source
-    map.addSource('wiki-points-src', {
-        type: 'vector',
-        url: 'mapbox://oakland-map-maker.wiki-points'
-    });
-    map.addLayer({
-        id: 'wiki-points',
-        type: 'circle',
-        source: 'wiki-points-src',
-        'source-layer': 'wiki_points',
-        minzoom: 10,
-        layout: { 'visibility': 'none' },
-        paint: {
-            'circle-color': 'hsl(0, 90%, 55%)',
-            'circle-opacity': 0.7,
-            'circle-emissive-strength': 1
-        }
-    });
+    // Wiki points: if the layer was baked into the Studio style, configure it
+    // in-place; otherwise add source + layer from scratch.
+    if (map.getLayer('wiki-points')) {
+        map.setLayoutProperty('wiki-points', 'visibility', 'none');
+        map.setPaintProperty('wiki-points', 'circle-color', 'hsl(0, 90%, 55%)');
+        map.setPaintProperty('wiki-points', 'circle-opacity', 0.7);
+        map.setPaintProperty('wiki-points', 'circle-emissive-strength', 1);
+    } else {
+        map.addSource('wiki-points-src', {
+            type: 'vector',
+            url: 'mapbox://oakland-map-maker.wiki-points'
+        });
+        map.addLayer({
+            id: 'wiki-points',
+            type: 'circle',
+            source: 'wiki-points-src',
+            'source-layer': 'wiki_points',
+            minzoom: 10,
+            layout: { 'visibility': 'none' },
+            paint: {
+                'circle-color': 'hsl(0, 90%, 55%)',
+                'circle-opacity': 0.7,
+                'circle-emissive-strength': 1
+            }
+        });
+    }
 
     // --------------------------------------------------
     // BUILDING CLICK INTERACTION
